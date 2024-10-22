@@ -18,6 +18,16 @@ app.use(
 );
 app.use(cors())
 
+// Use helmet to set security headers
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            fontSrc: ["'self'", "https://fonts.googleapis.com"],
+        },
+    },
+}));
+
 //routes
 readdirSync("./routes").map((r) => app.use("/", require("./routes/" + r)))
 
